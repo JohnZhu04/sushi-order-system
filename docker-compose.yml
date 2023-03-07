@@ -1,0 +1,30 @@
+version: '3'
+services:
+  api:
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    container_name: api
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - 'db'
+    environment:
+      - TZ=Asia/Tokyo
+
+  db:
+    image: mysql:oracle
+    container_name: fastapi_mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/conf/my.conf:/etc/mysql/conf.d/my.cnf
+      - ./mysql/store:/var/lib/mysql
+      - ./mysql/db:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=fastapi
+      - MYSQL_PASSWORD=passw0rd
+      - MYSQL_DATABASE=fastapi
+      - TZ=Asia/Tokyo
+    restart: always
