@@ -1,14 +1,20 @@
+CREATE TABLE seats (
+  seat_id INT NOT NULL,
+  is_available BOOLEAN DEFAULT true,
+  PRIMARY KEY (seat_id)
+);
+
 CREATE TABLE customers (
-  customer_id VARCHAR(10) NOT NULL,
+  customer_id CHAR(36) NOT NULL,
   seat_id INT,
   PRIMARY KEY (customer_id),
   FOREIGN KEY (seat_id) REFERENCES seats(seat_id)
 );
 
-CREATE TABLE seats (
-  seat_id INT NOT NULL,
-  is_available BOOLEAN DEFAULT true,
-  PRIMARY KEY (seat_id)
+CREATE TABLE categories (
+  category_id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(50) NOT NULL,
+  PRIMARY KEY (category_id)
 );
 
 CREATE TABLE sushis (
@@ -26,12 +32,6 @@ CREATE TABLE drinks (
   name VARCHAR(50) NOT NULL,
   price DECIMAL(10, 2) NOT NULL,
   PRIMARY KEY (drink_id)
-);
-
-CREATE TABLE categories (
-  category_id INT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(50) NOT NULL,
-  PRIMARY KEY (category_id)
 );
 
 CREATE TABLE orders (
@@ -71,6 +71,3 @@ CREATE TABLE stocks (
   FOREIGN KEY (item_type) REFERENCES categories(category_id),
   CHECK (item_type IN (0, 1))
 );
-
-INSERT INTO categories (name) VALUES ('Nigiri'), ('Maki'), ('Sashimi');
-INSERT INTO sushis (name, has_wasabi, price, category_id) VALUES ('Akami', true, 300, 1), ('Hosomaki', false, 200, 2), ('Salmon', true, 300, 3), ('Ebi', true, 100, 3);
