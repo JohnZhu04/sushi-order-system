@@ -41,15 +41,15 @@ class Category(Base):
 
 class Order(Base):
     __tablename__ = 'orders'
-    order_id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, primary_key=True, autoincrement=True)
     customer_id = Column(String(50), ForeignKey('customers.customer_id'))
     total_price = Column(Numeric(10, 2))
-    status = Column(Integer)
+    status = Column(Integer, default=0)
     order_details = relationship('OrderDetail', backref='order')
 
 class OrderDetail(Base):
     __tablename__ = 'order_details'
-    order_detail_id = Column(Integer, primary_key=True)
+    order_detail_id = Column(Integer, primary_key=True, autoincrement=True)
     order_id = Column(Integer, ForeignKey('orders.order_id'))
     item_type = Column(Integer)
     item_id = Column(Integer)
@@ -58,8 +58,8 @@ class OrderDetail(Base):
     quantity = Column(Integer)
     has_wasabi = Column(Boolean)
     price = Column(Numeric(10, 2))
-    status = Column(Integer)
-    ordered_at = Column(DateTime)
+    status = Column(Integer, default=1)
+    ordered_at = Column(DateTime, default=datetime.now)
 
 class Stock(Base):
     __tablename__ = 'stocks'
