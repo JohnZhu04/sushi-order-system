@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from app.db import session, Base
@@ -21,6 +23,19 @@ class DrinkModel(BaseModel):
     drink_id: int
     name: str
     price: float
+
+
+class OrderItemModel(BaseModel):
+    item_type: int
+    item_id: int
+    topping: int = None
+    size: int = None
+    quantity: int
+    has_wasabi: bool = None
+
+
+class OrderModel(BaseModel):
+    order_items: List[OrderItemModel]
 
 
 @app.get("/")
