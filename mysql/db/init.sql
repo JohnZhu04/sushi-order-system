@@ -63,11 +63,18 @@ CREATE TABLE order_details (
 );
 
 CREATE TABLE stocks (
-  stock_id INT NOT NULL,
+  stock_id INT NOT NULL AUTO_INCREMENT,
   item_type INT NOT NULL,
   item_id INT NOT NULL,
   quantity INT NOT NULL,
   PRIMARY KEY (stock_id),
-  FOREIGN KEY (item_type) REFERENCES categories(category_id),
   CHECK (item_type IN (0, 1))
 );
+
+
+-- insert sample data
+INSERT INTO seats (seat_id) VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10);
+INSERT INTO categories (name) VALUES ('A'), ('B'), ('C');
+INSERT INTO sushis (name, has_wasabi, price, category_id) VALUES ('Sushi 1', true, 100, 1), ('Sushi 2', false, 200, 2), ('Sushi 3', true, 300, 1), ('Sushi 4', false, 400, 3), ('Sushi 5', true, 500, 1);
+INSERT INTO drinks (drink_id, name, price) VALUES (1, 'Drink 1', 100), (2, 'Drink 2', 200), (3, 'Drink 3', 300), (4, 'Drink 4', 400), (5, 'Drink 5', 500);
+INSERT INTO stocks (stock_id, item_type, item_id, quantity) VALUES (1, 0, 1, 1), (2, 0, 2, 2), (3, 0, 3, 3), (4, 0, 4, 4), (5, 0, 5, 5), (6, 1, 1, 1), (7, 1, 2, 2), (8, 1, 3, 3), (9, 1, 4, 4), (10, 1, 5, 5);

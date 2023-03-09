@@ -67,10 +67,6 @@ class Stock(Base):
     item_type = Column(Integer)
     item_id = Column(Integer, nullable=True)
     quantity = Column(Integer)
-    sushi_id = Column(Integer, ForeignKey('sushis.sushi_id'), nullable=True)
-    sushi = relationship('Sushi', backref='stocks', foreign_keys=[sushi_id])
-    drink_id = Column(Integer, ForeignKey('drinks.drink_id'), nullable=True)
-    drink = relationship('Drink', backref='stocks', foreign_keys=[drink_id])
 
     __mapper_args__ = {
         'polymorphic_on': item_type,
