@@ -1,5 +1,5 @@
 CREATE TABLE seats (
-  seat_id INT NOT NULL,
+  seat_id INT NOT NULL AUTO_INCREMENT,
   is_available BOOLEAN DEFAULT true,
   PRIMARY KEY (seat_id)
 );
@@ -28,15 +28,15 @@ CREATE TABLE sushis (
 );
 
 CREATE TABLE drinks (
-  drink_id INT NOT NULL,
+  drink_id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
   price DECIMAL(10, 2) NOT NULL,
   PRIMARY KEY (drink_id)
 );
 
 CREATE TABLE orders (
-  order_id INT NOT NULL,
-  customer_id VARCHAR(10) NOT NULL,
+  order_id INT NOT NULL AUTO_INCREMENT,
+  customer_id CHAR(36) NOT NULL,
   total_price DECIMAL(10, 2) NOT NULL,
   status INT NOT NULL,
   PRIMARY KEY (order_id),
@@ -44,7 +44,7 @@ CREATE TABLE orders (
 );
 
 CREATE TABLE order_details (
-  order_detail_id INT NOT NULL,
+  order_detail_id INT NOT NULL AUTO_INCREMENT,
   order_id INT NOT NULL,
   item_type INT NOT NULL,
   item_id INT NOT NULL,
@@ -52,14 +52,14 @@ CREATE TABLE order_details (
   size INT,
   quantity INT NOT NULL,
   has_wasabi BOOLEAN DEFAULT false,
-  price DECIMAL(10, 2) NOT NULL,
-  status INT NOT NULL,
-  ordered_at DATETIME NOT NULL,
+  price DECIMAL(10, 2) NOT NULL DEFAULT 0,
+  status INT NOT NULL DEFAULT 1,
+  ordered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (order_detail_id),
   FOREIGN KEY (order_id) REFERENCES orders(order_id),
   CHECK (item_type IN (0, 1)),
-  CHECK (topping IS NULL OR item_type = 1),
-  CHECK (size IS NULL OR item_type = 1)
+  CHECK (topping IS NULL OR item_type = 0),
+  CHECK (size IS NULL OR item_type = 0)
 );
 
 CREATE TABLE stocks (
