@@ -13,8 +13,8 @@ services:
       - TZ=Asia/Tokyo
 
   db:
-    image: mysql:oracle
-    container_name: fastapi_mysql
+    image: mysql:8.0
+    container_name: mysql
     ports:
       - 3306:3306
     volumes:
@@ -23,8 +23,8 @@ services:
       - ./mysql/db:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=fastapi
+      - MYSQL_USER=sushi_admin
       - MYSQL_PASSWORD=passw0rd
-      - MYSQL_DATABASE=fastapi
+      - MYSQL_DATABASE=SushiOrderDB
       - TZ=Asia/Tokyo
     restart: always
