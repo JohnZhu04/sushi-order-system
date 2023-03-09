@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 from typing import List
 
+=======
+>>>>>>> 578de4c (Add API: menu CRUD)
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from app.db import session, Base
@@ -25,6 +28,7 @@ class DrinkModel(BaseModel):
     price: float
 
 
+<<<<<<< HEAD
 class OrderItemModel(BaseModel):
     item_type: int
     item_id: int
@@ -38,6 +42,8 @@ class OrderModel(BaseModel):
     order_items: List[OrderItemModel]
 
 
+=======
+>>>>>>> 578de4c (Add API: menu CRUD)
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
