@@ -81,7 +81,7 @@ def get_sushi_menus(category_id: int = None):
                 }
             ]
         }
-        return JSONResponse(content=response)
+        return JSONResponse(content=response, status_code=500)
 
 
 @app.get("/menus/drink")
@@ -113,7 +113,7 @@ def get_drink_menus():
                 }
             ]
         }
-        return JSONResponse(content=response)
+        return JSONResponse(content=response, status_code=500)
 
 
 @app.get("/menus")
@@ -161,7 +161,7 @@ def create_customer(seat_id: int):
                         'error_message': 'This seat does not exist.',
                     }
                 ]
-            })
+            }, status_code=400)
         
         if not seat.is_available:
             return JSONResponse(content={
@@ -172,7 +172,7 @@ def create_customer(seat_id: int):
                         'error_message': 'This seat is already taken.',
                     }
                 ]
-            })
+            }, status_code=400)
 
         # generate customer_id by UUID
         customer_id = uuid.uuid4()
@@ -205,7 +205,7 @@ def create_customer(seat_id: int):
                 }
             ]
         }
-        return JSONResponse(content=response)
+        return JSONResponse(content=response, status_code=500)
 
 
 @app.get("/customers/{customer_id}/orders")
@@ -277,7 +277,7 @@ def get_customer_orders(customer_id: str):
                 }
             ]
         }
-        return JSONResponse(content=response)
+        return JSONResponse(content=response, status_code=500)
 
 
 @app.post("/customers/{customer_id}/orders")
@@ -332,7 +332,7 @@ def create_customer_order(customer_id: str, order: OrderModel):
                 }
             ]
         }
-        return JSONResponse(content=response)
+        return JSONResponse(content=response, status_code=500)
 
 
 @app.get("/admin/orders/new")
@@ -390,7 +390,7 @@ def get_new_orders():
                 }
             ]
         }
-        return JSONResponse(content=response)
+        return JSONResponse(content=response, status_code=500)
 
 
 
@@ -463,7 +463,7 @@ def get_orders_by_customer_id(customer_id: str):
                 }
             ]
         }
-        return JSONResponse(content=response)
+        return JSONResponse(content=response, status_code=500)
 
 
 @app.put("/admin/order_details/{order_detail_id}")
@@ -484,7 +484,7 @@ def update_order_detail(order_detail_id: int, status: int):
                     'error_message': str(e),
                 }
             ]
-        })
+        }, status_code=500)
 
 
 @app.post("/admin/menus/sushi")
@@ -507,7 +507,7 @@ def create_sushi_menu(sushi: SushiModel):
                     'error_message': str(e),
                 }
             ]
-        })
+        }, status_code=500)
 
 
 @app.put("/admin/menus/sushi/{sushi_id}")
@@ -530,7 +530,7 @@ def update_sushi_menu(sushi_id: int, sushi: SushiModel):
                     'error_message': str(e),
                 }
             ]
-        })
+        }, status_code=500)
 
 
 @app.delete("/admin/menus/sushi/{sushi_id}")
@@ -554,7 +554,7 @@ def delete_sushi_menu(sushi_id: int):
                     'error_message': str(e),
                 }
             ]
-        })
+        }, status_code=500)
 
 
 @app.post("/admin/menus/drink")
@@ -577,7 +577,7 @@ def create_drink_menu(drink: DrinkModel):
                     'error_message': str(e),
                 }
             ]
-        })
+        }, status_code=500)
 
 
 @app.put("/admin/menus/drink/{drink_id}")
@@ -598,7 +598,7 @@ def update_drink_menu(drink_id: int, drink: DrinkModel):
                     'error_message': str(e),
                 }
             ]
-        })
+        }, status_code=500)
 
 
 @app.delete("/admin/menus/drink/{drink_id}")
@@ -622,4 +622,4 @@ def delete_drink_menu(drink_id: int):
                     'error_message': str(e),
                 }
             ]
-        })
+        }, status_code=500)
