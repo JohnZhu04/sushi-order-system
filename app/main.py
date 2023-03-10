@@ -496,7 +496,14 @@ def create_sushi_menu(sushi: SushiModel):
         _stock = Stock(item_type=0, item_id=sushi.sushi_id, quantity=0)
         session.add(_stock)
         session.commit()
-        return None
+        return JSONResponse(
+            content={
+                'result': {
+                    'sushi_id': sushi.sushi_id,
+                },
+                'errors': []
+            },
+        )
     except Exception as e:
         session.rollback()
         return JSONResponse(content={
@@ -519,7 +526,14 @@ def update_sushi_menu(sushi_id: int, sushi: SushiModel):
         _sushi.price = sushi.price
         _sushi.has_wasabi = sushi.has_wasabi
         session.commit()
-        return None
+        return JSONResponse(
+            content={
+                'result': {
+                    'sushi_id': sushi_id,
+                },
+                'errors': []
+            },
+        )
     except Exception as e:
         session.rollback()
         return JSONResponse(content={
@@ -543,7 +557,14 @@ def delete_sushi_menu(sushi_id: int):
             Stock.item_id == sushi_id).first()
         session.delete(_stock)
         session.commit()
-        return None
+        return JSONResponse(
+            content={
+                'result': {
+                    'sushi_id': sushi_id,
+                },
+                'errors': []
+            },
+        )
     except Exception as e:
         session.rollback()
         return JSONResponse(content={
@@ -566,7 +587,14 @@ def create_drink_menu(drink: DrinkModel):
         _stock = Stock(item_type=1, item_id=drink.drink_id, quantity=0)
         session.add(_stock)
         session.commit()
-        return None
+        return JSONResponse(
+            content={
+                'result': {
+                    'drink_id': drink.drink_id,
+                },
+                'errors': []
+            },
+        )
     except Exception as e:
         session.rollback()
         return JSONResponse(content={
@@ -588,7 +616,14 @@ def update_drink_menu(drink_id: int, drink: DrinkModel):
         _drink.name = drink.name
         _drink.price = drink.price
         session.commit()
-        return None
+        return JSONResponse(
+            content={
+                'result': {
+                    'drink_id': drink_id,
+                },
+                'errors': []
+            },
+        )
     except Exception as e:
         return JSONResponse(content={
             'result': {},
@@ -611,7 +646,14 @@ def delete_drink_menu(drink_id: int):
             Stock.item_id == drink_id).first()
         session.delete(_stock)
         session.commit()
-        return None
+        return JSONResponse(
+            content={
+                'result': {
+                    'drink_id': drink_id,
+                },
+                'errors': []
+            },
+        )
     except Exception as e:
         session.rollback()
         return JSONResponse(content={
